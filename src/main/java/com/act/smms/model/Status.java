@@ -46,6 +46,9 @@ public class Status {
         this.remark = remark;
     }
 
+    public Status() {
+    }
+
     public Long getId() {
         return id;
     }
