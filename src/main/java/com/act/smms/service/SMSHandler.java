@@ -51,6 +51,7 @@ public class SMSHandler {
             }
             ISPConfig config = configs.getFirst();
             String username = config.getUsername();
+            int from = config.getShortNumber();
             String password = config.getPassword();
             List<String> recipients = request.getRecipient();
             String message = request.getMessage();
@@ -64,6 +65,7 @@ public class SMSHandler {
             map.put("text", message);
             map.put("username", username);
             map.put("password", password);
+            map.put("from", from);
 
             if (recipients.isEmpty()) {
                 return false;
@@ -78,7 +80,7 @@ public class SMSHandler {
                             || phoneVerifier.getISP(recipient) == ISP.SAFARICOM)) {
                         status.setStatus(SMSStatus.FAILD);
                         status.setMessage(message);
-                        status.setSender(username);
+                        status.setSender(String.valueOf(from));
                         status.setRecipient(recipient);
                         status.setDate(LocalDateTime.now());
                         status.setRemark("the number does not refer to a known ISP");
@@ -100,7 +102,7 @@ public class SMSHandler {
                 } else {
                     status.setStatus(SMSStatus.FAILD);
                     status.setMessage(message);
-                    status.setSender(username);
+                    status.setSender(String.valueOf(from));
                     status.setRecipient(recipient);
                     status.setDate(LocalDateTime.now());
                     status.setRemark("the provided phone number is invalid");
