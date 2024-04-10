@@ -67,7 +67,7 @@ public class SMSHandler {
             map.put("password", password);
             map.put("from", from);
 
-            if (recipients.isEmpty()) {
+            if (recipients == null) {
                 return false;
             }
             ResponseEntity<StatusRequest> response = null;
